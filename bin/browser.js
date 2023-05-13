@@ -48,7 +48,8 @@ const getOutput = async (page, request) => {
     }
 
     if (request.action == 'cookie') {
-        output = await page._client.send('Network.getAllCookies');
+        const client = await page.target().createCDPSession();
+        output = (await client.send('Network.getAllCookies')).cookies;
 
         return output;
     }
