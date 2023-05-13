@@ -594,6 +594,13 @@ class Browsershot
         return $this->callBrowser($command);
     }
 
+    public function getCookies(): string
+    {
+        $command = $this->createCookieCommand();
+
+        return $this->callBrowser($command);
+    }
+
     public function base64Screenshot(): string
     {
         $command = $this->createScreenshotCommand();
@@ -696,6 +703,11 @@ class Browsershot
         $url = $this->getFinalContentsUrl();
 
         return $this->createCommand($url, 'content');
+    }
+
+    public function createCookieCommand(): array
+    {
+        return $this->createCommand($this->url, 'cookie');
     }
 
     public function createScreenshotCommand($targetPath = null): array

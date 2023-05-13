@@ -47,6 +47,12 @@ const getOutput = async (page, request) => {
         return output;
     }
 
+    if (request.action == 'cookie') {
+        output = await page._client.send('Network.getAllCookies');
+
+        return output;
+    }
+
     output = await page[request.action](request.options);
 
     return output.toString('base64');
